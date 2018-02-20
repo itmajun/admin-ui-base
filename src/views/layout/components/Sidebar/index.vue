@@ -18,6 +18,7 @@ export default {
       'sidebar'
     ]),
     routes() {
+      // 获取动态路由
       return this.$router.options.routes
     },
     isCollapse() {

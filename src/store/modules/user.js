@@ -6,7 +6,8 @@ const user = {
     token: getToken(),
     name: '',
     avatar: '',
-    roles: []
+    roles: [],
+    menus: []
   },
 
   mutations: {
@@ -21,6 +22,9 @@ const user = {
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles
+    },
+    SET_MENUS: (state, menus) => {
+      state.menus = menus
     }
   },
 
@@ -46,7 +50,8 @@ const user = {
         getInfo(state.token).then(response => {
           const data = response.data
           commit('SET_ROLES', data.roles)
-          commit('SET_NAME', data.name)
+          commit('SET_MENUS', data.menus)
+          commit('SET_NAME', data.admin.name)
           commit('SET_AVATAR', data.avatar)
           resolve(response)
         }).catch(error => {
