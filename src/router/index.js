@@ -40,21 +40,27 @@ export const constantRouterMap = [
   {
     path: '/system',
     component: Layout,
-    name: '系统管理',
-    meta: { title: '系统管理', icon: 'system' },
+    name: 'system',
+    meta: { title: '系统管理', icon: 'system', permiss: 'system' },
     children: [
       {
-        path: 'table',
-        name: '管理员管理',
-        component: () => import('@/views/table/index'),
-        meta: { title: '管理员管理', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: '角色管理',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '角色管理', icon: 'tree' }
+        path: 'menu',
+        name: 'menu',
+        component: () => import('@/views/pages/menu/index'),
+        meta: { title: '菜单', icon: 'menu', permiss: 'system:menu' }
       }
+      // {
+      //   path: 'admin',
+      //   name: 'admin',
+      //   component: () => import('@/views/pages/index'),
+      //   meta: { title: '管理员管理', icon: 'pages', permiss: 'system:admin' }
+      // },
+      // {
+      //   path: 'tree',
+      //   name: 'role',
+      //   component: () => import('@/views/tree/index'),
+      //   meta: { title: '角色管理', icon: 'tree', permiss: 'system:role' }
+      // }
     ]
   },
 
