@@ -22,6 +22,12 @@ router.beforeEach((to, from, next) => {
           })
         })
       } else {
+        // 判断权限
+        if (store.getters.permissions.indexOf(to.meta.permiss) >= 0) {
+          next()
+        } else {
+          next({ path: '/401', replace: true, query: { noGoBack: true }})
+        }
         next()
       }
     }

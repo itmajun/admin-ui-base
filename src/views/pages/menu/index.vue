@@ -53,7 +53,15 @@
           <el-input v-model="temp.name"></el-input>
         </el-form-item>
         <el-form-item prop="parentId" label="父id">
-          <el-select></el-select>
+          <el-select clearable class="filter-item" style="width: 110px" v-model="temp.parentId">
+            <el-option
+              v-if="temp.id != menu.id"
+              v-for="menu in allMenu"
+              :key="menu.id"
+              :label="menu.name"
+              :value="menu.id">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item prop="url" label="url">
           <el-input v-model="temp.url"></el-input>
@@ -106,7 +114,8 @@ export default {
         update: '编辑',
         create: '新增'
       },
-      dialogStatus: ''
+      dialogStatus: '',
+      allMenu: []
     }
   },
   filters: {
@@ -124,6 +133,7 @@ export default {
   },
   created() {
     this.fetchData()
+    this.fetchAll()
   },
   methods: {
     handleSizeChange(val) {
@@ -135,7 +145,6 @@ export default {
     },
     handleCurrentChange(val) {
       this.listQuery.page = val
-      this.fetchData()
     },
     fetchData() {
       this.listLoading = true
@@ -143,6 +152,14 @@ export default {
         if (response.code === 200 && response.data) {
           this.list = response.data.list
           this.total = response.data.total
+        }
+        this.listLoading = false
+      })
+    },
+    fetchAll() {
+      getList({ page: 1, size: 9999 }).then(response => {
+        if (response.code === 200 && response.data) {
+          this.allMenu = response.data.list
         }
         this.listLoading = false
       })
